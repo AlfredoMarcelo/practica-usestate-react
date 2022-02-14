@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 function App() {
   const hola = (
@@ -14,13 +14,19 @@ function App() {
 
   const [saludo, setSaludo] = useState(hola);
   const [count, setCount] = useState(0)
-  
-  
+/* ---------------------------------------------------- */
+  const textRef = useRef(null)
+  const newTextRef = useRef(null)
+  const change = ()=>{
+    console.log(textRef.current.value)
+    newTextRef.current.innerHTML = textRef.current.value
+  }
 
 
   return (
+    <section className="">
     <div className="container">
-      <div className="row mt-5 text-center">
+      <div className="row py-5 text-center">
         <div className="col-12">
           {saludo}
         </div>
@@ -39,11 +45,27 @@ function App() {
         </div>
         <div className="col-12">
           <div className="d-grid gap-2">
-            <button className="btn btn-outline-warning rounded-pill" onClick={()=>setCount(count + 1)}>Click me!</button>
+            <button className="btn btn-outline-warning rounded-pill" onClick={()=>setCount(count + 1)}><p className="h5">Click me!</p></button>
           </div>
         </div>
         </div>
+        <hr className="border border-dark border-5 bg-dark"></hr>
+        {/* --------------------------------------------------useRef--------------------------------------------------------- */}
+        <div className="row mt-5"> 
+          <div className="col-12">
+            <input className="text col-12 rounded-pill my-2" ref={textRef}></input>
+              <div className="d-grid gap-2">
+                <button className="btn btn-outline-dark rounded-pill" onClick={change}>
+                <p className="h5">useRef!</p>
+                </button>
+              </div>
+              <div className="col-12">
+                <p className="h5" ref={newTextRef}></p>
+              </div>
+          </div>
+        </div>
       </div>
+      </section>
   );
 }
 
